@@ -1,4 +1,9 @@
 void renderGamescreen() {
+  scorePlayer1 = 0;
+  scorePlayer2 = 0;
+  countCentepedeSegmentsPlayer1 = 10;
+  countCentepedeSegmentsPlayer2 = 10;
+
   background(#ffffff);
   renderGameboard();
 }

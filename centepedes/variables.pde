@@ -1,20 +1,41 @@
-int scorePlayer1 = 0;
-int countCentepedeSegmentsPlayer1 = 10;
+int scorePlayer1;
+int scorePlayer2;
+int countCentepedeSegmentsPlayer1;
+int countCentepedeSegmentsPlayer2;
+
+int gameboardSizeY = 8;
+int gameboardSizeX = 16;
+int gameboardSquareSize = 20;
+int fruitPercentage = 10;
+int turnTimeInSeconds = 20;
 int[][] gameboard;
 
-String[] gameboardItems = {
-  "empty",
-  "visited",
-  "centepedeHeadPlayer1",
-  "centepedeHeadPlayer2",
-  "centepedeSegmentPlayer1",
-  "centepedeSegmentPlayer2",
-  "apple",
-  "banana",
-  "cherries",
-  "chameleon"
-};
+// Gameboard items
+int emptyId = 0;
+int visitedId = 1;
+int centepedeHeadPlayer1Id = 2;
+int centepedeHeadPlayer2Id = 3;
+int centepedeSegmentPlayer1Id = 4;
+int centepedeSegmentPlayer2Id = 5;
+int appleId = 6;
+int bananaId = 7;
+int cherriesId = 8;
+int chameleonId = 9;
 
+//String[] gameboardItems = {
+//  "empty",
+//  "visited",
+//  "centepedeHeadPlayer1",
+//  "centepedeHeadPlayer2",
+//  "centepedeSegmentPlayer1",
+//  "centepedeSegmentPlayer2",
+//  "apple",
+//  "banana",
+//  "cherries",
+//  "chameleon"
+//};
+
+// Gameboard item colors by id
 color[] gameboardItemColors = {
   #ffffff,
   #cccccc,
@@ -27,9 +48,3 @@ color[] gameboardItemColors = {
   #fffff0,
   #fffff0,
 };
-
-int gameboardSizeY = 8;
-int gameboardSizeX = 16;
-int gameboardSquareSize = 20;
-int fruitPercentage = 10;
-int turnTimeInSeconds = 20;

@@ -1,6 +1,5 @@
 // UpdateScore(player, item)
 // UpdateCentepedeLength(player, isIncrease)
-// MoveCentepede(player, direction)
 
 int[][] createGameboard() {
 
@@ -10,11 +9,11 @@ int[][] createGameboard() {
     for (int x = 0; x < gameboardSizeX; x = x+1) {
 
       if (x == 0 && y == 0) {
-        gameboard[y][x] = 2; // Player 1 head
-      } else if (x == 0) {
-        gameboard[y][x] = 4; // Player 1 segment
+        gameboard[y][x] = centepedeHeadPlayer1Id;
+      } else if (x == 0) { // TODO Fix addjustable length
+        gameboard[y][x] = centepedeSegmentPlayer1Id;
       } else {
-        gameboard[y][x] = 0;
+        gameboard[y][x] = emptyId;
       }
     }
   }
@@ -40,9 +39,9 @@ int[] getHeadPosition(int player) {
   for (int y = 0; y < gameboard.length; y = y+1) {
     for (int x = 0; x < gameboard[y].length; x = x+1) {
       if (
-        (player == 1 && gameboard[y][x] == 2)
+        (player == 1 && gameboard[y][x] == centepedeHeadPlayer1Id)
         ||
-        (player == 2 && gameboard[y][x] == 3)
+        (player == 2 && gameboard[y][x] == centepedeHeadPlayer2Id)
         ) {
         return new int[] {x, y};
       }
