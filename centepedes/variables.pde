@@ -5,12 +5,27 @@ int[][] gameboard;
 String[] gameboardItems = {
   "empty",
   "visited",
-  "centepedeHead",
-  "centepedeSegment",
+  "centepedeHeadPlayer1",
+  "centepedeHeadPlayer2",
+  "centepedeSegmentPlayer1",
+  "centepedeSegmentPlayer2",
   "apple",
   "banana",
   "cherries",
   "chameleon"
+};
+
+color[] gameboardItemColors = {
+  #ffffff,
+  #cccccc,
+  #000000,
+  #000000,
+  #00ff00,
+  #0000ff,
+  #fffff0,
+  #fffff0,
+  #fffff0,
+  #fffff0,
 };
 
 int gameboardSizeY = 8;
