@@ -1,7 +1,7 @@
 int scorePlayer1;
 int scorePlayer2;
-int countCentepedeSegmentsPlayer1;
-int countCentepedeSegmentsPlayer2;
+int countCentipedeSegmentsPlayer1;
+int countCentipedeSegmentsPlayer2;
 
 int gameboardSizeY = 8;
 int gameboardSizeX = 16;
@@ -18,12 +18,12 @@ int bananaId = 7;
 int cherriesId = 8;
 int chameleonId = 9;
 
-// Gameboard centepede positions
-int[][] centepedePositions;
-int centepedeHeadPlayer1Id = 2;
-int centepedeHeadPlayer2Id = 3;
-int centepedeSegmentPlayer1Id = 4;
-int centepedeSegmentPlayer2Id = 5;
+// Gameboard centipede positions
+int[][] centipedePositions;
+int centipedeHeadPlayer1Id = 2;
+int centipedeHeadPlayer2Id = 3;
+int centipedeSegmentPlayer1Id = 4;
+int centipedeSegmentPlayer2Id = 5;
 
 // Gameboard item colors mapped by id as index
 color[] gameboardItemColors = {
