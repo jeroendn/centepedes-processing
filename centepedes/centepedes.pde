@@ -12,13 +12,16 @@ void draw() {
   if (keyPressed) {
     if (key == 'w') {
       println("w");
+      move(1, "up");
     } else if (key == 'a') {
       println("a");
+      move(1, "left");
     } else if (key == 's') {
       println("s");
+      move(1, "down");
     } else if (key == 'd') {
       println("d");
-      moveRight(1);
+      move(1, "right");
     }
   }
 
