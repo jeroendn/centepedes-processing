@@ -1,7 +1,8 @@
 // UpdateScore(player, item)
 // UpdateCentipedeLength(player, isIncrease)
 
-int[][] initCentipedePositions() {
+int[][] initCentipedePositions()
+{
   centipedePositions = new int[gameboardSizeY][gameboardSizeX];
 
   for (int y = 0; y < gameboardSizeY; y = y+1) {
@@ -20,7 +21,8 @@ int[][] initCentipedePositions() {
   return centipedePositions;
 }
 
-int[][] createGameboard() {
+int[][] createGameboard()
+{
   gameboard = new int[gameboardSizeY][gameboardSizeX];
 
   for (int y = 0; y < gameboardSizeY; y = y+1) {
@@ -37,7 +39,8 @@ int[][] createGameboard() {
   return gameboard;
 }
 
-void drawGameboard() {
+void drawGameboard()
+{
   for (int y = 0; y < gameboard.length; y = y+1) {
     int offsetY = boardOffsetY() + (gameboardSquareSize * y);
 
@@ -55,28 +58,90 @@ void drawGameboard() {
   }
 }
 
-void move(int player, String direction) {
-  // get head position
-  println(getHeadPosition(player));
+void move(int player, String direction)
+{
+  int[] headPositions = getHeadPosition(player);
 
-  // set head position
-  // get segements postition
-  // set segements postition
-  // draw board anew
+  setHeadPosition(player, headPositions[0], headPositions[1], direction);
+
+  if (headHasBeenMoved(player, headPositions[0], headPositions[1])) {
+
+    // get segements postition
+
+    // set segements postition
+  }
+
+  drawGameboard();
 }
 
-int[] getHeadPosition(int player) {
-  for (int y = 0; y < gameboard.length; y = y+1) {
-    for (int x = 0; x < gameboard[y].length; x = x+1) {
+int[] getHeadPosition(int player)
+{
+  for (int y = 0; y < centipedePositions.length; y = y+1) {
+    for (int x = 0; x < centipedePositions[y].length; x = x+1) {
       if (
-        (player == 1 && gameboard[y][x] == centipedeHeadPlayer1Id)
+        (player == 1 && centipedePositions[y][x] == centipedeHeadPlayer1Id)
         ||
-        (player == 2 && gameboard[y][x] == centipedeHeadPlayer2Id)
+        (player == 2 && centipedePositions[y][x] == centipedeHeadPlayer2Id)
         ) {
-        return new int[] {x, y};
+        return new int[] {y, x};
       }
     }
   }
 
   return new int[] {0, 0}; // Should NEVER be the case
+}
+
+void setHeadPosition(int player, int currentY, int currentX, String direction)
+{
+  int addY = 0;
+  int addX = 0;
+
+  switch(direction) {
+  case "up":
+    addY = -1;
+    break;
+  case "right":
+    addX = 1;
+    break;
+  case "down":
+    addY = 1;
+    break;
+  case "left":
+    addX = -1;
+    break;
+  default:
+    return;
+  }
+
+  if (
+    (currentY + addY >= gameboardSizeY)
+    ||
+    (currentY + addY < 0)
+    ||
+    (currentX + addX >= gameboardSizeX)
+    ||
+    (currentX + addX < 0)
+    ) {
+    println("Out of bounds");
+    return;
+  }
+
+  centipedePositions[currentY][currentX] = emptyId;
+
+  if (player == 1) {
+    centipedePositions[currentY + addY][currentX + addX] = centipedeHeadPlayer1Id;
+  } else {
+    centipedePositions[currentY + addY][currentX + addX] = centipedeHeadPlayer2Id;
+  }
+}
+
+boolean headHasBeenMoved(int player, int previousY, int previousX)
+{
+  int[] headPositions = getHeadPosition(player);
+
+  if (headPositions[0] != previousY || headPositions[1] != previousX) {
+    return true;
+  }
+
+  return false;
 }

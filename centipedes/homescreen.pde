@@ -3,12 +3,14 @@ float startButtonY = 50;
 float startButtonW = 150;
 float startButtonH = 80;
 
-void renderHomescreen() {
+void renderHomescreen()
+{
   background(#ffffff);
   renderStartButton();
 }
 
-void renderStartButton() {
+void renderStartButton()
+{
   rect(startButtonX,startButtonY,startButtonW,startButtonH);
   fill(#000000);
   textSize(25);

@@ -1,4 +1,5 @@
-void renderGamescreen() {
+void renderGamescreen()
+{
   scorePlayer1 = 0;
   scorePlayer2 = 0;
   countCentipedeSegmentsPlayer1 = 10;
@@ -8,17 +9,20 @@ void renderGamescreen() {
   renderGameboard();
 }
 
-void renderGameboard() {
+void renderGameboard()
+{
   centipedePositions = initCentipedePositions();  
   gameboard = createGameboard();
   
   drawGameboard();
 }
 
-int boardOffsetY() {
+int boardOffsetY()
+{
   return (height / 2) - (gameboardSizeY * gameboardSquareSize / 2);
 }
 
-int boardOffsetX() {
+int boardOffsetX()
+{
   return (width / 2) - (gameboardSizeX * gameboardSquareSize / 2);
 }
