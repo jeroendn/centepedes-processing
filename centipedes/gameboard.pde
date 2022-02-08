@@ -8,9 +8,9 @@ int[][] initCentipedePositions()
   for (int y = 0; y < gameboardSizeY; y = y+1) {
     for (int x = 0; x < gameboardSizeX; x = x+1) {
 
-      if (x == 0 && y == 0) {
+      if (x == 1 && y == 1) {
         centipedePositions[y][x] = centipedeHeadPlayer1Id;
-      } else if (x == 0) { // TODO Fix addjustable length
+      } else if (x == 0        && y ==1) { // TODO Fix addjustable length
         centipedePositions[y][x] = centipedeSegmentPlayer1Id;
       } else {
         centipedePositions[y][x] = emptyId;
@@ -67,8 +67,10 @@ void move(int player, String direction)
   if (headHasBeenMoved(player, headPositions[0], headPositions[1])) {
 
     // get segements postition
+    int[][] previousSegmentPositions = extractSegmentPositions(player);
 
     // set segements postition
+    setSegmentPositions(player, direction, previousSegmentPositions);
   }
 
   drawGameboard();
@@ -144,4 +146,61 @@ boolean headHasBeenMoved(int player, int previousY, int previousX)
   }
 
   return false;
+}
+
+int[][] extractSegmentPositions(int player)
+{
+  int[][] positions = new int[gameboardSizeY][gameboardSizeX];
+
+  for (int y = 0; y < centipedePositions.length; y = y+1) {
+    for (int x = 0; x < centipedePositions[y].length; x = x+1) {
+      if (player == 1 && centipedePositions[y][x] == centipedeSegmentPlayer1Id) {
+        positions[y][x] = centipedeSegmentPlayer1Id;
+        centipedePositions[y][x] = emptyId; // Clear the old position
+      } else {
+        positions[y][x] = emptyId;
+      }
+    }
+  }
+
+  return positions;
+}
+
+void setSegmentPositions(int player, String direction, int[][] previousPositions)
+{
+  int[] headPositions = getHeadPosition(player);
+
+  int offsetY = 0;
+  int offsetX = 0;
+
+  switch(direction) {
+  case "up":
+    offsetY = -1;
+    break;
+  case "right":
+    offsetX = 1;
+    break;
+  case "down":
+    offsetY = 1;
+    break;
+  case "left":
+    offsetX = -1;
+    break;
+  default:
+    return;
+  }
+
+  for (int y = 0; y < centipedePositions.length; y = y+1) {
+    for (int x = 0; x < centipedePositions[y].length; x = x+1) {
+      if (previousPositions[y][x] == centipedeSegmentPlayer1Id) {
+        int velocityY = headPositions[y] - y * 2;
+        int velocityX = headPositions[x] - x * 2;
+
+        println(velocityY, velocityX);
+
+        centipedePositions[y + offsetY -1][x + offsetX +1] = centipedeSegmentPlayer1Id;
+        //centipedePositions[y + offsetY -1][x + offsetX +1] = centipedeSegmentPlayer1Id;
+      }
+    }
+  }
 }
