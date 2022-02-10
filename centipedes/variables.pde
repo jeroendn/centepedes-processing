@@ -19,7 +19,8 @@ int cherriesId = 8;
 int chameleonId = 9;
 
 // Gameboard centipede positions
-int[][] centipedePositions;
+int[][] centipedePositionsPlayer1;
+int[][] centipedePositionsPlayer2;
 int centipedeHeadPlayer1Id = 2;
 int centipedeHeadPlayer2Id = 3;
 int centipedeSegmentPlayer1Id = 4;

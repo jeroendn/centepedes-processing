@@ -2,7 +2,7 @@ void renderGamescreen()
 {
   scorePlayer1 = 0;
   scorePlayer2 = 0;
-  countCentipedeSegmentsPlayer1 = 10;
+  countCentipedeSegmentsPlayer1 = 8;
   countCentipedeSegmentsPlayer2 = 10;
 
   background(#ffffff);
@@ -11,7 +11,7 @@ void renderGamescreen()
 
 void renderGameboard()
 {
-  centipedePositions = initCentipedePositions();  
+  initCentipedePositions();  
   gameboard = createGameboard();
   
   drawGameboard();
