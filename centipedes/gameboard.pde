@@ -4,14 +4,15 @@
 void initCentipedePositions()
 {
   centipedePositionsPlayer1 = new int[countCentipedeSegmentsPlayer1][2];
+  centipedePositionsPlayer2 = new int[countCentipedeSegmentsPlayer2][2];
 
   for (int y = 0; y < gameboardSizeY; y = y+1) {
     for (int x = 0; x < gameboardSizeX; x = x+1) {
 
-      if (x == 0 && y == 0) {
-        centipedePositionsPlayer1[0] = new int[] {y, x};
-      } else if (x == 0) { // TODO Fix addjustable length
+      if (x == 0) { // TODO Fix addjustable length
         centipedePositionsPlayer1[y] = new int[] {y, x}; // TODO DANGEROUS TO USE Y
+      } else if (x == 15) {
+        centipedePositionsPlayer2[y] = new int[] {y, x};
       }
     }
   }
@@ -56,6 +57,17 @@ void drawGameboard()
         }
       }
 
+      for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+        if (centipedePositionsPlayer2[i][0] == y && centipedePositionsPlayer2[i][1] == x) {
+          if (i == 0) {
+            fill(gameboardItemColors[centipedeHeadPlayer2Id]);
+          } else {
+            fill(gameboardItemColors[centipedeSegmentPlayer2Id]);
+          }
+          filled = true;
+        }
+      }
+
       if (!filled) {
         fill(gameboardItemColors[gameboard[y][x]]);
       }
@@ -65,34 +77,31 @@ void drawGameboard()
   }
 }
 
-void move(int player, String direction)
+void move(String direction)
 {
   ddC(centipedePositionsPlayer1);
-  
-  int[] headPositions = getHeadPosition(player);
 
-  setHeadPosition(player, headPositions[0], headPositions[1], direction);
+  int[] headPositions = getHeadPosition();
 
-  if (headHasBeenMoved(player, headPositions[0], headPositions[1])) {
+  setHeadPosition(headPositions[0], headPositions[1], direction);
 
-    //int[][] previousSegmentPositions = getSegmentPositions(player);
-
-    setSegmentPositions(player, headPositions);
+  if (headHasBeenMoved(headPositions[0], headPositions[1])) {
+    setSegmentPositions(headPositions);
   }
 
   drawGameboard();
 }
 
-int[] getHeadPosition(int player)
+int[] getHeadPosition()
 {
-  if (player == 1) {
+  if (isPlayer1) {
     return centipedePositionsPlayer1[0];
   } else {
     return centipedePositionsPlayer2[0];
   }
 }
 
-void setHeadPosition(int player, int currentY, int currentX, String direction)
+void setHeadPosition(int currentY, int currentX, String direction)
 {
   int addY = 0;
   int addX = 0;
@@ -127,12 +136,16 @@ void setHeadPosition(int player, int currentY, int currentX, String direction)
     return;
   }
 
-  centipedePositionsPlayer1[0] = new int[] {currentY + addY, currentX + addX};
+  if (isPlayer1) {
+    centipedePositionsPlayer1[0] = new int[] {currentY + addY, currentX + addX};
+  } else {
+    centipedePositionsPlayer2[0] = new int[] {currentY + addY, currentX + addX};
+  }
 }
 
-boolean headHasBeenMoved(int player, int previousY, int previousX)
+boolean headHasBeenMoved(int previousY, int previousX)
 {
-  int[] headPositions = getHeadPosition(player);
+  int[] headPositions = getHeadPosition();
 
   if (headPositions[0] != previousY || headPositions[1] != previousX) {
     return true;
@@ -141,39 +154,39 @@ boolean headHasBeenMoved(int player, int previousY, int previousX)
   return false;
 }
 
-//int[][] getSegmentPositions(int player)
-//{
-//  int[][] positions = new int[countCentipedeSegmentsPlayer1][2];
-//  int i = 0;
-  
-//  for (int y = 0; y < centipedePositionsPlayer1.length; y = y+1) {
-//    for (int x = 0; x < centipedePositionsPlayer1[y].length; x = x+1) {
-//      if (player == 1 && centipedePositionsPlayer1[y][x] == centipedeSegmentPlayer1Id) {
-//        positions[i] = new int[] {y, x};
-//        i++;
-//      }
-//    }
-//  }
-
-//  return positions;
-//}
-
-void setSegmentPositions(int player, int[] previousHeadPosition)
+void setSegmentPositions(int[] previousHeadPosition)
 {
   int[] prevPos = new int[] {};
 
-  for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
-    if (i == 1) {
-      prevPos = centipedePositionsPlayer1[i];
-      centipedePositionsPlayer1[i] = new int[] {previousHeadPosition[0], previousHeadPosition[1]};
+  if (isPlayer1) {
+    for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
+      if (i == 1) {
+        prevPos = centipedePositionsPlayer1[i];
+        centipedePositionsPlayer1[i] = new int[] {previousHeadPosition[0], previousHeadPosition[1]};
+      }
     }
-  }
 
-  for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
-    if (i != 0 && i != 1) {
-      int[] tempPos = centipedePositionsPlayer1[i];
-      centipedePositionsPlayer1[i] = new int[] {prevPos[0], prevPos[1]};
-      prevPos = tempPos;
+    for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
+      if (i != 0 && i != 1) {
+        int[] tempPos = centipedePositionsPlayer1[i];
+        centipedePositionsPlayer1[i] = new int[] {prevPos[0], prevPos[1]};
+        prevPos = tempPos;
+      }
+    }
+  } else {
+    for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+      if (i == 1) {
+        prevPos = centipedePositionsPlayer2[i];
+        centipedePositionsPlayer2[i] = new int[] {previousHeadPosition[0], previousHeadPosition[1]};
+      }
+    }
+
+    for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+      if (i != 0 && i != 1) {
+        int[] tempPos = centipedePositionsPlayer2[i];
+        centipedePositionsPlayer2[i] = new int[] {prevPos[0], prevPos[1]};
+        prevPos = tempPos;
+      }
     }
   }
 }

@@ -2,8 +2,10 @@ void renderGamescreen()
 {
   scorePlayer1 = 0;
   scorePlayer2 = 0;
-  countCentipedeSegmentsPlayer1 = 8;
-  countCentipedeSegmentsPlayer2 = 10;
+  countCentipedeSegmentsPlayer1 = 8; // TODO Fix to use 10
+  countCentipedeSegmentsPlayer2 = 8; // TODO Fix to use 10
+  
+  isPlayer1 = true;
 
   background(#ffffff);
   renderGameboard();

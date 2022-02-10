@@ -14,14 +14,26 @@ void draw()
 
 void keyPressed()
 {
-  if (key == 'w') {
-    move(1, "up");
-  } else if (key == 'd') {
-    move(1, "right");
-  } else if (key == 's') {
-    move(1, "down");
-  } else if (key == 'a') {
-    move(1, "left");
+  if (isPlayer1) {
+    if (key == 'w') {
+      move("up");
+    } else if (key == 'd') {
+      move("right");
+    } else if (key == 's') {
+      move("down");
+    } else if (key == 'a') {
+      move("left");
+    }
+  } else {
+    if (keyCode == UP) {
+      move("up");
+    } else if (keyCode == RIGHT) {
+      move("right");
+    } else if (keyCode == DOWN) {
+      move("down");
+    } else if (keyCode == LEFT) {
+      move("left");
+    }
   }
 }
 

@@ -3,6 +3,8 @@ int scorePlayer2;
 int countCentipedeSegmentsPlayer1;
 int countCentipedeSegmentsPlayer2;
 
+boolean isPlayer1;
+
 int gameboardSizeY = 8;
 int gameboardSizeX = 16;
 int gameboardSquareSize = 20;
