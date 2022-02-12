@@ -83,7 +83,8 @@ void drawGameboard()
       if (!filled) {
         fill(gameboardItemColors[gameboard[y][x]]); // Print any gameboard item other than a player item
       }
-
+      
+      stroke(#000000);
       square(offsetX, offsetY, gameboardSquareSize);
     }
   }
@@ -103,6 +104,7 @@ void move(String direction)
   int[] newHeadPosition = getHeadPosition();
 
   if (lastCollidedWith == "banana") {
+    addScore(1);
     increase = true;
     gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove banana
   }

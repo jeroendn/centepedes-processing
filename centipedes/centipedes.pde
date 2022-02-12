@@ -16,6 +16,13 @@ void draw()
   if (gameOver) {
     renderHomescreen();
   }
+  
+  fill(backgroundColor);
+  noStroke();
+  rect(0, 0, 100, 20);
+  fill(textColor);
+  textSize(15);
+  text("Score1:" + scorePlayer1, 10, 10);
 }
 
 void keyPressed()

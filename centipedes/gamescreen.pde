@@ -8,7 +8,7 @@ void renderGamescreen()
   gameOver = false;
   isPlayer1 = true;
   lastCollidedWith = null;
-  
+
   fruitAmount = 20;
   chameleonAmount = ceil((gameboardSizeY * gameboardSizeX - fruitAmount) * .1); // 10% of boardspace minus fruit occupance
 
@@ -32,4 +32,12 @@ int boardOffsetY()
 int boardOffsetX()
 {
   return (width / 2) - (gameboardSizeX * gameboardSquareSize / 2);
+}
+
+void addScore(int amount) {
+  if (isPlayer1) {
+    scorePlayer1 = scorePlayer1 + amount;
+  } else {
+    scorePlayer2 = scorePlayer2 + amount;
+  }
 }

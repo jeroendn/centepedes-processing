@@ -1,3 +1,6 @@
+color backgroundColor = #ffffff;
+color textColor = #000000;
+
 int scorePlayer1;
 int scorePlayer2;
 int countCentipedeSegmentsPlayer1;
