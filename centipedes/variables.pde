@@ -10,17 +10,17 @@ String lastCollidedWith;
 int gameboardSizeY = 8;
 int gameboardSizeX = 16;
 int gameboardSquareSize = 20;
-int fruitPercentage = 10;
+int fruitAmount;
+int chameleonAmount;
 int turnTimeInSeconds = 20;
 
 // Gameboard items
 int[][] gameboard;
 int emptyId = 0;
 int visitedId = 1;
-int appleId = 6;
-int bananaId = 7;
-int cherriesId = 8;
-int chameleonId = 9;
+int bananaId = 6;
+int cherriesId = 7;
+int chameleonId = 8;
 
 // Gameboard centipede positions
 int[][] centipedePositionsPlayer1;
@@ -38,8 +38,7 @@ color[] gameboardItemColors = {
   #000000,
   #17e847,
   #e62dff,
-  #fffff0,
-  #fffff0,
+  #ffff00,
   #fffff0,
   #fffff0,
 };

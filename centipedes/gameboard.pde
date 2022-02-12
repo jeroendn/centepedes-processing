@@ -1,3 +1,6 @@
+/**
+ * Initializes the positions of the centipedes on the gameboard.
+ */
 void initCentipedePositions()
 {
   centipedePositionsPlayer1 = new int[countCentipedeSegmentsPlayer1][2];
@@ -15,24 +18,36 @@ void initCentipedePositions()
   }
 }
 
+/**
+ * Genarates how to board will be filled in.
+ */
 int[][] createGameboard()
 {
   gameboard = new int[gameboardSizeY][gameboardSizeX];
 
+  // Fill entire board with emptyness
   for (int y = 0; y < gameboardSizeY; y = y+1) {
     for (int x = 0; x < gameboardSizeX; x = x+1) {
-
-      if (false) { // TODO Add conditions for adding board items
-        return gameboard;
-      } else {
-        gameboard[y][x] = emptyId;
-      }
+      gameboard[y][x] = emptyId;
     }
+  }
+
+  while (fruitAmount > 0) {
+    int randY = int(random(0, gameboardSizeY));
+    int randX = int(random(0, gameboardSizeX));
+
+    if (willCollide(randY, randX)) continue;
+
+    gameboard[randY][randX] = bananaId;
+    fruitAmount = fruitAmount - 1;
   }
 
   return gameboard;
 }
 
+/**
+ * Draws to gameboard to the screen.
+ */
 void drawGameboard()
 {
   for (int y = 0; y < gameboard.length; y = y+1) {
@@ -66,7 +81,7 @@ void drawGameboard()
       }
 
       if (!filled) {
-        fill(gameboardItemColors[gameboard[y][x]]);
+        fill(gameboardItemColors[gameboard[y][x]]); // Print any gameboard item other than a player item
       }
 
       square(offsetX, offsetY, gameboardSquareSize);
@@ -74,17 +89,29 @@ void drawGameboard()
   }
 }
 
+/**
+ * Tries to move the active player to the desired direction.
+ */
 void move(String direction)
 {
-  int[] headPositions = getHeadPosition();
+  int[] oldHeadPosition = getHeadPosition();
+  boolean increase = false;
+  lastCollidedWith = "";
 
-  setHeadPosition(headPositions[0], headPositions[1], direction);
+  setHeadPosition(oldHeadPosition[0], oldHeadPosition[1], direction);
+  
+  int[] newHeadPosition = getHeadPosition();
 
-  if (headHasBeenMoved(headPositions[0], headPositions[1])) {
+  if (lastCollidedWith == "banana") {
+    increase = true;
+    gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove banana
+  }
+
+  if (headHasBeenMoved(oldHeadPosition[0], oldHeadPosition[1])) {
     if (isPlayer1) {
-      setSegmentPositions(headPositions, centipedePositionsPlayer1);
+      centipedePositionsPlayer1 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer1, increase);
     } else {
-      setSegmentPositions(headPositions, centipedePositionsPlayer2);
+      centipedePositionsPlayer2 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer2, increase);
     }
   }
 
@@ -100,6 +127,9 @@ int[] getHeadPosition()
   }
 }
 
+/**
+ * Tries to move the active player's head to the desired direction.
+ */
 void setHeadPosition(int currentY, int currentX, String direction)
 {
   int addY = 0;
@@ -125,11 +155,7 @@ void setHeadPosition(int currentY, int currentX, String direction)
   if (willCollide(currentY + addY, currentX + addX)) {
     if (lastCollidedWith == "border") {
       return;
-    } else if (
-      lastCollidedWith == "player1"
-      ||
-      lastCollidedWith == "player2"
-      ) {
+    } else if (lastCollidedWith == "player1" || lastCollidedWith == "player2") {
       gameOver = true;
       return;
     }
@@ -143,7 +169,8 @@ void setHeadPosition(int currentY, int currentX, String direction)
 }
 
 /**
- * Returns false if new positions would result in a colliosion.
+ * Returns true if the new position would result in a colliosion.
+ * Use variable lastCollidedWith to see which item has been collided with.
  */
 boolean willCollide(int newY, int newX)
 {
@@ -177,9 +204,18 @@ boolean willCollide(int newY, int newX)
     }
   }
 
+  if (gameboard[newY][newX] == bananaId) {
+    lastCollidedWith = "banana";
+    println("Banana collide!");
+    return true;
+  }
+
   return false;
 }
 
+/**
+ * Checks of the head was able to be moved.
+ */
 boolean headHasBeenMoved(int previousY, int previousX)
 {
   int[] headPositions = getHeadPosition();
@@ -191,7 +227,10 @@ boolean headHasBeenMoved(int previousY, int previousX)
   return false;
 }
 
-void setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositions)
+/**
+ * Updates the player's segement positions based on the player's action.
+ */
+int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositions, boolean increase)
 {
   int[] prevPos = new int[] {};
 
@@ -204,9 +243,17 @@ void setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositions)
 
   for (int i = 0; i < centipedePositions.length; i = i+1) {
     if (i != 0 && i != 1) {
+      println(prevPos[0], prevPos[1]);
       int[] tempPos = centipedePositions[i];
       centipedePositions[i] = new int[] {prevPos[0], prevPos[1]};
       prevPos = tempPos;
     }
   }
+
+  if (increase) {
+    centipedePositions = (int[][]) expand(centipedePositions, centipedePositions.length + 1);
+    centipedePositions[centipedePositions.length - 1] = new int[] {prevPos[0], prevPos[1]};
+  }
+
+  return centipedePositions;
 }
