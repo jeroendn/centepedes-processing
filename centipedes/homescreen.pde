@@ -11,7 +11,7 @@ void renderHomescreen()
 
 void renderStartButton()
 {
-  rect(startButtonX,startButtonY,startButtonW,startButtonH);
+  rect(startButtonX, startButtonY, startButtonW, startButtonH);
   fill(#000000);
   textSize(25);
   text("Start game", startButtonX + (startButtonW / 2) - 50, startButtonY + (startButtonH / 2));

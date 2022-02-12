@@ -4,7 +4,7 @@ void renderGamescreen()
   scorePlayer2 = 0;
   countCentipedeSegmentsPlayer1 = 8; // TODO Fix to use 10
   countCentipedeSegmentsPlayer2 = 8; // TODO Fix to use 10
-  
+
   isPlayer1 = true;
 
   background(#ffffff);
@@ -13,9 +13,9 @@ void renderGamescreen()
 
 void renderGameboard()
 {
-  initCentipedePositions();  
+  initCentipedePositions();
   gameboard = createGameboard();
-  
+
   drawGameboard();
 }
 
