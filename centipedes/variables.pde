@@ -3,7 +3,9 @@ int scorePlayer2;
 int countCentipedeSegmentsPlayer1;
 int countCentipedeSegmentsPlayer2;
 
+boolean gameOver;
 boolean isPlayer1;
+String lastCollidedWith;
 
 int gameboardSizeY = 8;
 int gameboardSizeX = 16;

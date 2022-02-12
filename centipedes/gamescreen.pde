@@ -5,7 +5,9 @@ void renderGamescreen()
   countCentipedeSegmentsPlayer1 = 8; // TODO Fix to use 10
   countCentipedeSegmentsPlayer2 = 8; // TODO Fix to use 10
 
+  gameOver = false;
   isPlayer1 = true;
+  lastCollidedWith = null;
 
   background(#ffffff);
   renderGameboard();

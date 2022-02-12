@@ -2,6 +2,8 @@ void setup()
 {
   size(1000, 500);
   renderHomescreen();
+
+  renderGamescreen(); // TODO Remove lazyness
 }
 
 void draw()
@@ -9,6 +11,10 @@ void draw()
   if (checkButtonPressed(startButtonX, startButtonY, startButtonW, startButtonH)) {
     println("The mouse is pressed and over the button");
     renderGamescreen();
+  }
+
+  if (gameOver) {
+    renderHomescreen();
   }
 }
 

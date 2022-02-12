@@ -122,17 +122,17 @@ void setHeadPosition(int currentY, int currentX, String direction)
     return;
   }
 
-  if (
-    (currentY + addY >= gameboardSizeY)
-    ||
-    (currentY + addY < 0)
-    ||
-    (currentX + addX >= gameboardSizeX)
-    ||
-    (currentX + addX < 0)
-    ) {
-    println("Out of bounds");
-    return;
+  if (willCollide(currentY + addY, currentX + addX)) {
+    if (lastCollidedWith == "border") {
+      return;
+    } else if (
+      lastCollidedWith == "player1"
+      ||
+      lastCollidedWith == "player2"
+      ) {
+      gameOver = true;
+      return;
+    }
   }
 
   if (isPlayer1) {
@@ -140,6 +140,44 @@ void setHeadPosition(int currentY, int currentX, String direction)
   } else {
     centipedePositionsPlayer2[0] = new int[] {currentY + addY, currentX + addX};
   }
+}
+
+/**
+ * Returns false if new positions would result in a colliosion.
+ */
+boolean willCollide(int newY, int newX)
+{
+  if (
+    (newY >= gameboardSizeY)
+    ||
+    (newY < 0)
+    ||
+    (newX >= gameboardSizeX)
+    ||
+    (newX < 0)
+    ) {
+    lastCollidedWith = "border";
+    println("Out of bounds!");
+    return true;
+  }
+
+  for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
+    if (centipedePositionsPlayer1[i][0] == newY && centipedePositionsPlayer1[i][1] == newX) {
+      lastCollidedWith = "player1";
+      println("Player 1 collide!");
+      return true;
+    }
+  }
+
+  for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+    if (centipedePositionsPlayer2[i][0] == newY && centipedePositionsPlayer2[i][1] == newX) {
+      lastCollidedWith = "player2";
+      println("Player 2 collide!");
+      return true;
+    }
+  }
+
+  return false;
 }
 
 boolean headHasBeenMoved(int previousY, int previousX)
