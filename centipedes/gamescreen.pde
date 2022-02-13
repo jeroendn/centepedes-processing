@@ -9,7 +9,8 @@ void renderGamescreen()
   isPlayer1 = true;
   lastCollidedWith = null;
 
-  fruitAmount = 20;
+  fruitAmount = 25;
+  cherryAmount = ceil(fruitAmount * .2); // 20% of fruit are cherries
   chameleonAmount = ceil((gameboardSizeY * gameboardSizeX - fruitAmount) * .1); // 10% of boardspace minus fruit occupance
 
   background(#ffffff);

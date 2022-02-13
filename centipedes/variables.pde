@@ -14,6 +14,7 @@ int gameboardSizeY = 8;
 int gameboardSizeX = 16;
 int gameboardSquareSize = 20;
 int fruitAmount;
+int cherryAmount;
 int chameleonAmount;
 int turnTimeInSeconds = 20;
 
@@ -22,7 +23,7 @@ int[][] gameboard;
 int emptyId = 0;
 int visitedId = 1;
 int bananaId = 6;
-int cherriesId = 7;
+int cherryId = 7;
 int chameleonId = 8;
 
 // Gameboard centipede positions
@@ -42,6 +43,6 @@ color[] gameboardItemColors = {
   #17e847,
   #e62dff,
   #ffff00,
-  #fffff0,
-  #fffff0,
+  #ff0000,
+  #00ff00,
 };

@@ -38,8 +38,22 @@ int[][] createGameboard()
 
     if (willCollide(randY, randX)) continue;
 
-    gameboard[randY][randX] = bananaId;
+    if (fruitAmount <= cherryAmount) {
+      gameboard[randY][randX] = cherryId;
+    } else {
+      gameboard[randY][randX] = bananaId;
+    }
     fruitAmount = fruitAmount - 1;
+  }
+
+  while (chameleonAmount > 0) {
+    int randY = int(random(0, gameboardSizeY));
+    int randX = int(random(0, gameboardSizeX));
+
+    if (willCollide(randY, randX)) continue;
+
+    gameboard[randY][randX] = chameleonId;
+    chameleonAmount = chameleonAmount - 1;
   }
 
   return gameboard;
@@ -83,7 +97,7 @@ void drawGameboard()
       if (!filled) {
         fill(gameboardItemColors[gameboard[y][x]]); // Print any gameboard item other than a player item
       }
-      
+
       stroke(#000000);
       square(offsetX, offsetY, gameboardSquareSize);
     }
@@ -97,23 +111,35 @@ void move(String direction)
 {
   int[] oldHeadPosition = getHeadPosition();
   boolean increase = false;
+  boolean decrease = false;
   lastCollidedWith = "";
 
   setHeadPosition(oldHeadPosition[0], oldHeadPosition[1], direction);
-  
+
   int[] newHeadPosition = getHeadPosition();
 
-  if (lastCollidedWith == "banana") {
-    addScore(1);
+  switch(lastCollidedWith) {
+  case "banana":
+    addScore(10);
     increase = true;
     gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove banana
+    break;
+  case "cherry":
+    addScore(5);
+    increase = true;
+    gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove cherry
+    break;
+  case "chamelion":
+    decrease = true;
+    gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove chamelion
+    break;
   }
 
   if (headHasBeenMoved(oldHeadPosition[0], oldHeadPosition[1])) {
     if (isPlayer1) {
-      centipedePositionsPlayer1 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer1, increase);
+      centipedePositionsPlayer1 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer1, increase, decrease);
     } else {
-      centipedePositionsPlayer2 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer2, increase);
+      centipedePositionsPlayer2 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer2, increase, decrease);
     }
   }
 
@@ -212,6 +238,18 @@ boolean willCollide(int newY, int newX)
     return true;
   }
 
+  if (gameboard[newY][newX] == cherryId) {
+    lastCollidedWith = "cherry";
+    println("Cherry collide!");
+    return true;
+  }
+
+  if (gameboard[newY][newX] == chameleonId) {
+    lastCollidedWith = "chamelion";
+    println("Chamelion collide!");
+    return true;
+  }
+
   return false;
 }
 
@@ -232,7 +270,7 @@ boolean headHasBeenMoved(int previousY, int previousX)
 /**
  * Updates the player's segement positions based on the player's action.
  */
-int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositions, boolean increase)
+int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositions, boolean increase, boolean decrease)
 {
   int[] prevPos = new int[] {};
 
@@ -245,7 +283,6 @@ int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositio
 
   for (int i = 0; i < centipedePositions.length; i = i+1) {
     if (i != 0 && i != 1) {
-      println(prevPos[0], prevPos[1]);
       int[] tempPos = centipedePositions[i];
       centipedePositions[i] = new int[] {prevPos[0], prevPos[1]};
       prevPos = tempPos;
@@ -255,6 +292,8 @@ int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositio
   if (increase) {
     centipedePositions = (int[][]) expand(centipedePositions, centipedePositions.length + 1);
     centipedePositions[centipedePositions.length - 1] = new int[] {prevPos[0], prevPos[1]};
+  } else if (decrease) {
+    centipedePositions = (int[][]) expand(centipedePositions, centipedePositions.length - 1);
   }
 
   return centipedePositions;
