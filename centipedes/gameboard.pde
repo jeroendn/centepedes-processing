@@ -4,14 +4,14 @@
 void initCentipedePositions()
 {
   centipedePositionsPlayer1 = new int[countCentipedeSegmentsPlayer1][2];
-  centipedePositionsPlayer2 = new int[countCentipedeSegmentsPlayer2][2];
+  if (isMultiplayer) centipedePositionsPlayer2 = new int[countCentipedeSegmentsPlayer2][2];
 
   for (int y = 0; y < gameboardSizeY; y = y+1) {
     for (int x = 0; x < gameboardSizeX; x = x+1) {
 
       if (x == 0) { // TODO Fix addjustable length
         centipedePositionsPlayer1[y] = new int[] {y, x}; // TODO DANGEROUS TO USE Y
-      } else if (x == 15) {
+      } else if (x == 15 && isMultiplayer) {
         centipedePositionsPlayer2[y] = new int[] {y, x};
       }
     }
@@ -83,14 +83,16 @@ void drawGameboard()
         }
       }
 
-      for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
-        if (centipedePositionsPlayer2[i][0] == y && centipedePositionsPlayer2[i][1] == x) {
-          if (i == 0) {
-            fill(gameboardItemColors[centipedeHeadPlayer2Id]);
-          } else {
-            fill(gameboardItemColors[centipedeSegmentPlayer2Id]);
+      if (isMultiplayer) {
+        for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+          if (centipedePositionsPlayer2[i][0] == y && centipedePositionsPlayer2[i][1] == x) {
+            if (i == 0) {
+              fill(gameboardItemColors[centipedeHeadPlayer2Id]);
+            } else {
+              fill(gameboardItemColors[centipedeSegmentPlayer2Id]);
+            }
+            filled = true;
           }
-          filled = true;
         }
       }
 
@@ -141,6 +143,7 @@ void move(String direction)
     } else {
       centipedePositionsPlayer2 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer2, increase, decrease);
     }
+    if (isMultiplayer) endTurn();
   }
 
   drawGameboard();
@@ -184,7 +187,7 @@ void setHeadPosition(int currentY, int currentX, String direction)
     if (lastCollidedWith == "border") {
       return;
     } else if (lastCollidedWith == "player1" || lastCollidedWith == "player2") {
-      gameOver = true;
+      gameOver();
       return;
     }
   }
@@ -224,11 +227,13 @@ boolean willCollide(int newY, int newX)
     }
   }
 
-  for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
-    if (centipedePositionsPlayer2[i][0] == newY && centipedePositionsPlayer2[i][1] == newX) {
-      lastCollidedWith = "player2";
-      println("Player 2 collide!");
-      return true;
+  if (isMultiplayer) {
+    for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+      if (centipedePositionsPlayer2[i][0] == newY && centipedePositionsPlayer2[i][1] == newX) {
+        lastCollidedWith = "player2";
+        println("Player 2 collide!");
+        return true;
+      }
     }
   }
 

@@ -2,27 +2,30 @@ void setup()
 {
   size(1000, 500);
   renderHomescreen();
-
-  renderGamescreen(); // TODO Remove lazyness
 }
 
 void draw()
 {
-  if (checkButtonPressed(startButtonX, startButtonY, startButtonW, startButtonH)) {
-    println("The mouse is pressed and over the button");
-    renderGamescreen();
-  }
-
-  if (gameOver) {
+  if (inGame) {
+    fill(backgroundColor);
+    noStroke();
+    rect(0, 0, 100, 20);
+    fill(textColor);
+    textSize(15);
+    text("Score1:" + scorePlayer1, 10, 10);
+  } else {
     renderHomescreen();
+
+    if (checkButtonPressed(singleplayerButtonX, playerModeButtonY, playerModeButtonW, playerModeButtonH)) {
+      println("The mouse is pressed and over the button");
+      renderGamescreen(false);
+    }
+
+    if (checkButtonPressed(multiplayerButtonX, playerModeButtonY, playerModeButtonW, playerModeButtonH)) {
+      println("The mouse is pressed and over the button");
+      renderGamescreen(true);
+    }
   }
-  
-  fill(backgroundColor);
-  noStroke();
-  rect(0, 0, 100, 20);
-  fill(textColor);
-  textSize(15);
-  text("Score1:" + scorePlayer1, 10, 10);
 }
 
 void keyPressed()

@@ -1,11 +1,12 @@
-void renderGamescreen()
+void renderGamescreen(boolean isMulti)
 {
+  isMultiplayer = isMulti;
   scorePlayer1 = 0;
   scorePlayer2 = 0;
   countCentipedeSegmentsPlayer1 = 8; // TODO Fix to use 10
   countCentipedeSegmentsPlayer2 = 8; // TODO Fix to use 10
 
-  gameOver = false;
+  inGame = true;
   isPlayer1 = true;
   lastCollidedWith = null;
 
@@ -35,10 +36,21 @@ int boardOffsetX()
   return (width / 2) - (gameboardSizeX * gameboardSquareSize / 2);
 }
 
-void addScore(int amount) {
+void addScore(int amount)
+{
   if (isPlayer1) {
     scorePlayer1 = scorePlayer1 + amount;
   } else {
     scorePlayer2 = scorePlayer2 + amount;
   }
+}
+
+void endTurn()
+{
+  isPlayer1 = !isPlayer1;
+}
+
+void gameOver()
+{
+  inGame = false;
 }

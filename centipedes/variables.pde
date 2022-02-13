@@ -6,7 +6,8 @@ int scorePlayer2;
 int countCentipedeSegmentsPlayer1;
 int countCentipedeSegmentsPlayer2;
 
-boolean gameOver;
+boolean isMultiplayer;
+boolean inGame;
 boolean isPlayer1;
 String lastCollidedWith;
 
