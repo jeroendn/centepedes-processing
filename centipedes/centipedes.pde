@@ -7,19 +7,7 @@ void setup()
 void draw()
 {
   if (inGame) {
-    fill(backgroundColor);
-    noStroke();
-    rect(0, 0, 150, 20);
-    fill(textColor);
-    textSize(15);
-    text("Score player 1: " + scorePlayer1, 10, 10);
-
-    fill(backgroundColor);
-    noStroke();
-    rect(150, 0, 150, 20);
-    fill(textColor);
-    textSize(15);
-    text("Score player 2: " + scorePlayer2, 150, 10);
+    printScore();
   } else {
     renderHomescreen();
 

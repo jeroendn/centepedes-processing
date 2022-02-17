@@ -26,6 +26,32 @@ void renderGameboard()
   drawGameboard();
 }
 
+void printScore()
+{  
+  int borderOffset = 20;
+  String text = "Score player 1: " + scorePlayer1;
+  float textWidth = textWidth(text);
+  
+  fill(backgroundColor);
+  noStroke();
+  rect(borderOffset, 0, textWidth, 35);
+  fill(textColor);
+  textSize(20);
+  text(text, borderOffset, borderOffset);
+
+  if (isMultiplayer) {
+    text = "Score player 2: " + scorePlayer2;
+    textWidth = textWidth(text);
+    
+    fill(backgroundColor);
+    noStroke();
+    rect((width - textWidth) - borderOffset, 0, textWidth, 35);
+    fill(textColor);
+    textSize(20);
+    text(text, (width - textWidth) - borderOffset, borderOffset);
+  }
+}
+
 int boardOffsetY()
 {
   return (height / 2) - (gameboardSizeY * gameboardSquareSize / 2);
