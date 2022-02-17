@@ -38,7 +38,7 @@ int centipedeSegmentPlayer2Id = 5;
 // Gameboard item colors mapped by id as index
 color[] gameboardItemColors = {
   #ffffff,
-  #cccccc,
+  #dddddd,
   #000000,
   #000000,
   #17e847,

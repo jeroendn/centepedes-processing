@@ -124,16 +124,16 @@ void move(String direction)
   case "banana":
     addScore(10);
     increase = true;
-    gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove banana
+    gameboard[newHeadPosition[0]][newHeadPosition[1]] = visitedId; // Remove banana
     break;
   case "cherry":
     addScore(5);
     increase = true;
-    gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove cherry
+    gameboard[newHeadPosition[0]][newHeadPosition[1]] = visitedId; // Remove cherry
     break;
   case "chamelion":
     decrease = true;
-    gameboard[newHeadPosition[0]][newHeadPosition[1]] = emptyId; // Remove chamelion
+    gameboard[newHeadPosition[0]][newHeadPosition[1]] = visitedId; // Remove chamelion
     break;
   }
 
@@ -184,7 +184,7 @@ void setHeadPosition(int currentY, int currentX, String direction)
   }
 
   if (willCollide(currentY + addY, currentX + addX)) {
-    if (lastCollidedWith == "border") {
+    if (lastCollidedWith == "border" || lastCollidedWith == "visited") {
       return;
     } else if (lastCollidedWith == "player1" || lastCollidedWith == "player2") {
       gameOver();
@@ -197,6 +197,8 @@ void setHeadPosition(int currentY, int currentX, String direction)
   } else {
     centipedePositionsPlayer2[0] = new int[] {currentY + addY, currentX + addX};
   }
+  
+  gameboard[currentY][currentX] = visitedId;
 }
 
 /**
@@ -235,6 +237,11 @@ boolean willCollide(int newY, int newX)
         return true;
       }
     }
+  }
+
+  if (gameboard[newY][newX] == visitedId) {
+    lastCollidedWith = "visited";
+    return true;
   }
 
   if (gameboard[newY][newX] == bananaId) {
