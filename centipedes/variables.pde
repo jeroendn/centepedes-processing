@@ -13,7 +13,7 @@ String lastCollidedWith;
 
 int gameboardSizeY = 8;
 int gameboardSizeX = 16;
-int gameboardSquareSize = 20;
+int gameboardSquareSize = 25;
 int fruitAmount;
 int cherryAmount;
 int chameleonAmount;

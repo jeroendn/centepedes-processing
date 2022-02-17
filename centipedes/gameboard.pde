@@ -118,22 +118,17 @@ void move(String direction)
 
   setHeadPosition(oldHeadPosition[0], oldHeadPosition[1], direction);
 
-  int[] newHeadPosition = getHeadPosition();
-
   switch(lastCollidedWith) {
   case "banana":
     addScore(10);
     increase = true;
-    gameboard[newHeadPosition[0]][newHeadPosition[1]] = visitedId; // Remove banana
     break;
   case "cherry":
     addScore(5);
     increase = true;
-    gameboard[newHeadPosition[0]][newHeadPosition[1]] = visitedId; // Remove cherry
     break;
   case "chamelion":
     decrease = true;
-    gameboard[newHeadPosition[0]][newHeadPosition[1]] = visitedId; // Remove chamelion
     break;
   }
 
@@ -143,6 +138,8 @@ void move(String direction)
     } else {
       centipedePositionsPlayer2 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer2, increase, decrease);
     }
+    gameboard[oldHeadPosition[0]][oldHeadPosition[1]] = visitedId; // Mark position as visited
+    if (remainingFruitCount() <= 0) gameOver(); // When all fruits have been eaten
     if (isMultiplayer) endTurn();
   }
 
@@ -197,8 +194,6 @@ void setHeadPosition(int currentY, int currentX, String direction)
   } else {
     centipedePositionsPlayer2[0] = new int[] {currentY + addY, currentX + addX};
   }
-  
-  gameboard[currentY][currentX] = visitedId;
 }
 
 /**
@@ -308,5 +303,25 @@ int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositio
     centipedePositions = (int[][]) expand(centipedePositions, centipedePositions.length - 1);
   }
 
+  if (centipedePositions.length <= 1) gameOver(); // When all segements have disappeared
+
   return centipedePositions;
+}
+
+/**
+ * Counts the amount of fruits remaining on the gameboard.
+ */
+int remainingFruitCount()
+{
+  int fruitCount = 0;
+
+  for (int y = 0; y < gameboard.length; y = y+1) {
+    for (int x = 0; x < gameboard[y].length; x = x+1) {
+      if (gameboard[y][x] == bananaId || gameboard[y][x] == cherryId) {
+        fruitCount = fruitCount + 1;
+      }
+    }
+  }
+
+  return fruitCount;
 }
