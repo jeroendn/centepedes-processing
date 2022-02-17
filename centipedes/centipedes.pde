@@ -8,6 +8,13 @@ void draw()
 {
   if (inGame) {
     printScore();
+    printTurnTime();
+
+    if (isMultiplayer && millis() > timeInMillis + turnTimeInMillis)
+    {
+      timeInMillis = millis();
+      endTurn();
+    }
   } else {
     renderHomescreen();
 

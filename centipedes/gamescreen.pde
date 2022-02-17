@@ -1,5 +1,6 @@
 void renderGamescreen(boolean isMulti)
 {
+  timeInMillis = millis();
   isMultiplayer = isMulti;
   scorePlayer1 = 0;
   scorePlayer2 = 0;
@@ -27,29 +28,49 @@ void renderGameboard()
 }
 
 void printScore()
-{  
+{
+  textSize(20);
   int borderOffset = 20;
   String text = "Score player 1: " + scorePlayer1;
   float textWidth = textWidth(text);
-  
+
   fill(backgroundColor);
   noStroke();
   rect(borderOffset, 0, textWidth, 35);
-  fill(textColor);
-  textSize(20);
+  if (isPlayer1) {
+    fill(#00ff00);
+  } else {
+    fill(textColor);
+  }
   text(text, borderOffset, borderOffset);
 
   if (isMultiplayer) {
     text = "Score player 2: " + scorePlayer2;
     textWidth = textWidth(text);
-    
+
     fill(backgroundColor);
     noStroke();
     rect((width - textWidth) - borderOffset, 0, textWidth, 35);
-    fill(textColor);
-    textSize(20);
+    if (!isPlayer1) {
+      fill(#00ff00);
+    } else {
+      fill(textColor);
+    }
     text(text, (width - textWidth) - borderOffset, borderOffset);
   }
+}
+
+void printTurnTime()
+{
+  textSize(30);
+  String text = str(abs((timeInMillis - millis()) / 1000));
+  float textWidth = textWidth(text);
+  int extraWidth = 30;
+  fill(backgroundColor);
+  noStroke();
+  rect((width / 2 - textWidth) - (extraWidth / 2), 0, textWidth + extraWidth, 35);
+  fill(textColor);
+  text(text, width / 2 - textWidth, 25);
 }
 
 int boardOffsetY()

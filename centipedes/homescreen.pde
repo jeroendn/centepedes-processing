@@ -20,7 +20,7 @@ void renderHomescreen()
 void renderSingleplayerButton()
 {
   int textSize = 20;
-  
+
   fill(#ffffff);
   stroke(#000000);
   rect(singleplayerButtonX, playerModeButtonY, playerModeButtonW, playerModeButtonH);
@@ -32,7 +32,7 @@ void renderSingleplayerButton()
 void renderMultiPlayerButton()
 {
   int textSize = 20;
-  
+
   fill(#ffffff);
   stroke(#000000);
   rect(multiplayerButtonX, playerModeButtonY, playerModeButtonW, playerModeButtonH);

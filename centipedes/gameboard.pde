@@ -6,8 +6,8 @@ void initCentipedePositions()
   centipedePositionsPlayer1 = new int[countCentipedeSegmentsPlayer1][2];
   if (isMultiplayer) centipedePositionsPlayer2 = new int[countCentipedeSegmentsPlayer2][2];
 
-  for (int y = 0; y < gameboardSizeY; y = y+1) {
-    for (int x = 0; x < gameboardSizeX; x = x+1) {
+  for (int y = 0; y < gameboardSizeY; y++) {
+    for (int x = 0; x < gameboardSizeX; x++) {
 
       if (x == 0) { // TODO Fix addjustable length
         centipedePositionsPlayer1[y] = new int[] {y, x}; // TODO DANGEROUS TO USE Y
@@ -26,8 +26,8 @@ int[][] createGameboard()
   gameboard = new int[gameboardSizeY][gameboardSizeX];
 
   // Fill entire board with emptyness
-  for (int y = 0; y < gameboardSizeY; y = y+1) {
-    for (int x = 0; x < gameboardSizeX; x = x+1) {
+  for (int y = 0; y < gameboardSizeY; y++) {
+    for (int x = 0; x < gameboardSizeX; x++) {
       gameboard[y][x] = emptyId;
     }
   }
@@ -64,15 +64,15 @@ int[][] createGameboard()
  */
 void drawGameboard()
 {
-  for (int y = 0; y < gameboard.length; y = y+1) {
+  for (int y = 0; y < gameboard.length; y++) {
     int offsetY = boardOffsetY() + (gameboardSquareSize * y);
 
-    for (int x = 0; x < gameboard[y].length; x = x+1) {
+    for (int x = 0; x < gameboard[y].length; x++) {
       int offsetX = boardOffsetX() + (gameboardSquareSize * x);
 
       boolean filled = false;
 
-      for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
+      for (int i = 0; i < centipedePositionsPlayer1.length; i++) {
         if (centipedePositionsPlayer1[i][0] == y && centipedePositionsPlayer1[i][1] == x) {
           if (i == 0) {
             fill(gameboardItemColors[centipedeHeadPlayer1Id]);
@@ -84,7 +84,7 @@ void drawGameboard()
       }
 
       if (isMultiplayer) {
-        for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+        for (int i = 0; i < centipedePositionsPlayer2.length; i++) {
           if (centipedePositionsPlayer2[i][0] == y && centipedePositionsPlayer2[i][1] == x) {
             if (i == 0) {
               fill(gameboardItemColors[centipedeHeadPlayer2Id]);
@@ -216,7 +216,7 @@ boolean willCollide(int newY, int newX)
     return true;
   }
 
-  for (int i = 0; i < centipedePositionsPlayer1.length; i = i+1) {
+  for (int i = 0; i < centipedePositionsPlayer1.length; i++) {
     if (centipedePositionsPlayer1[i][0] == newY && centipedePositionsPlayer1[i][1] == newX) {
       lastCollidedWith = "player1";
       println("Player 1 collide!");
@@ -225,7 +225,7 @@ boolean willCollide(int newY, int newX)
   }
 
   if (isMultiplayer) {
-    for (int i = 0; i < centipedePositionsPlayer2.length; i = i+1) {
+    for (int i = 0; i < centipedePositionsPlayer2.length; i++) {
       if (centipedePositionsPlayer2[i][0] == newY && centipedePositionsPlayer2[i][1] == newX) {
         lastCollidedWith = "player2";
         println("Player 2 collide!");
@@ -281,14 +281,14 @@ int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositio
 {
   int[] prevPos = new int[] {};
 
-  for (int i = 0; i < centipedePositions.length; i = i+1) {
+  for (int i = 0; i < centipedePositions.length; i++) {
     if (i == 1) {
       prevPos = centipedePositions[i];
       centipedePositions[i] = new int[] {previousHeadPosition[0], previousHeadPosition[1]};
     }
   }
 
-  for (int i = 0; i < centipedePositions.length; i = i+1) {
+  for (int i = 0; i < centipedePositions.length; i++) {
     if (i != 0 && i != 1) {
       int[] tempPos = centipedePositions[i];
       centipedePositions[i] = new int[] {prevPos[0], prevPos[1]};
@@ -315,8 +315,8 @@ int remainingFruitCount()
 {
   int fruitCount = 0;
 
-  for (int y = 0; y < gameboard.length; y = y+1) {
-    for (int x = 0; x < gameboard[y].length; x = x+1) {
+  for (int y = 0; y < gameboard.length; y++) {
+    for (int x = 0; x < gameboard[y].length; x++) {
       if (gameboard[y][x] == bananaId || gameboard[y][x] == cherryId) {
         fruitCount = fruitCount + 1;
       }
