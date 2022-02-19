@@ -95,6 +95,7 @@ void addScore(int amount)
 void endTurn()
 {
   isPlayer1 = !isPlayer1;
+  timeInMillis = millis();
 }
 
 void gameOver()

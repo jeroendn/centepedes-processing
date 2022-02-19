@@ -212,14 +212,12 @@ boolean willCollide(int newY, int newX)
     (newX < 0)
     ) {
     lastCollidedWith = "border";
-    println("Out of bounds!");
     return true;
   }
 
   for (int i = 0; i < centipedePositionsPlayer1.length; i++) {
     if (centipedePositionsPlayer1[i][0] == newY && centipedePositionsPlayer1[i][1] == newX) {
       lastCollidedWith = "player1";
-      println("Player 1 collide!");
       return true;
     }
   }
@@ -228,7 +226,6 @@ boolean willCollide(int newY, int newX)
     for (int i = 0; i < centipedePositionsPlayer2.length; i++) {
       if (centipedePositionsPlayer2[i][0] == newY && centipedePositionsPlayer2[i][1] == newX) {
         lastCollidedWith = "player2";
-        println("Player 2 collide!");
         return true;
       }
     }
@@ -241,19 +238,16 @@ boolean willCollide(int newY, int newX)
 
   if (gameboard[newY][newX] == bananaId) {
     lastCollidedWith = "banana";
-    println("Banana collide!");
     return true;
   }
 
   if (gameboard[newY][newX] == cherryId) {
     lastCollidedWith = "cherry";
-    println("Cherry collide!");
     return true;
   }
 
   if (gameboard[newY][newX] == chameleonId) {
     lastCollidedWith = "chamelion";
-    println("Chamelion collide!");
     return true;
   }
 

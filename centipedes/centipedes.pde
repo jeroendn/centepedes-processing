@@ -8,7 +8,8 @@ void draw()
 {
   if (inGame) {
     printScore();
-    printTurnTime();
+
+    if (isMultiplayer) printTurnTime();
 
     if (isMultiplayer && millis() > timeInMillis + turnTimeInMillis)
     {
@@ -32,25 +33,27 @@ void draw()
 
 void keyPressed()
 {
-  if (isPlayer1) {
-    if (key == 'w') {
-      move("up");
-    } else if (key == 'd') {
-      move("right");
-    } else if (key == 's') {
-      move("down");
-    } else if (key == 'a') {
-      move("left");
-    }
-  } else {
-    if (keyCode == UP) {
-      move("up");
-    } else if (keyCode == RIGHT) {
-      move("right");
-    } else if (keyCode == DOWN) {
-      move("down");
-    } else if (keyCode == LEFT) {
-      move("left");
+  if (inGame) {
+    if (isPlayer1) {
+      if (key == 'w') {
+        move("up");
+      } else if (key == 'd') {
+        move("right");
+      } else if (key == 's') {
+        move("down");
+      } else if (key == 'a') {
+        move("left");
+      }
+    } else {
+      if (keyCode == UP) {
+        move("up");
+      } else if (keyCode == RIGHT) {
+        move("right");
+      } else if (keyCode == DOWN) {
+        move("down");
+      } else if (keyCode == LEFT) {
+        move("left");
+      }
     }
   }
 }
