@@ -12,7 +12,7 @@ void renderHomescreen()
   singleplayerButtonX = (width / 2) - playerModeButtonW;
   multiplayerButtonX = (width / 2);
 
-  background(backgroundColor);
+  background(background);
   renderSingleplayerButton();
   renderMultiPlayerButton();
 }

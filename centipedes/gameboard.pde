@@ -129,6 +129,9 @@ void move(String direction)
     break;
   case "chamelion":
     decrease = true;
+    file = new SoundFile(this, "../files/murloc.mp3");
+    file.amp(0.1);
+    file.play();
     break;
   }
 

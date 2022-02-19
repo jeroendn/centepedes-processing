@@ -15,7 +15,7 @@ void renderGamescreen(boolean isMulti)
   cherryAmount = ceil(fruitAmount * .2); // 20% of fruit are cherries
   chameleonAmount = ceil((gameboardSizeY * gameboardSizeX - fruitAmount) * .1); // 10% of boardspace minus fruit occupance
 
-  background(#ffffff);
+  background(background);
   renderGameboard();
 }
 
@@ -33,10 +33,11 @@ void printScore()
   int borderOffset = 20;
   String text = "Score player 1: " + scorePlayer1;
   float textWidth = textWidth(text);
+  int padding = 20;
 
   fill(backgroundColor);
   noStroke();
-  rect(borderOffset, 0, textWidth, 35);
+  rect(borderOffset - (padding / 2), 0, textWidth + padding, 35, borderRadius);
   if (isPlayer1) {
     fill(#00ff00);
   } else {
@@ -50,7 +51,7 @@ void printScore()
 
     fill(backgroundColor);
     noStroke();
-    rect((width - textWidth) - borderOffset, 0, textWidth, 35);
+    rect((width - textWidth) - borderOffset - (padding / 2), 0, textWidth + padding, 35, borderRadius);
     if (!isPlayer1) {
       fill(#00ff00);
     } else {
@@ -68,7 +69,7 @@ void printTurnTime()
   int extraWidth = 30;
   fill(backgroundColor);
   noStroke();
-  rect((width / 2 - textWidth) - (extraWidth / 2), 0, textWidth + extraWidth, 35);
+  rect((width / 2 - textWidth) - (extraWidth / 2), 0, textWidth + extraWidth, 35, borderRadius);
   fill(textColor);
   text(text, width / 2 - textWidth, 25);
 }
@@ -101,4 +102,10 @@ void endTurn()
 void gameOver()
 {
   inGame = false;
+
+  if (int(random(0, 10)) == 1) {
+    file = new SoundFile(this, "../files/xp-shutdown.mp3");
+    file.amp(0.01);
+    file.play();
+  }
 }

@@ -1,6 +1,16 @@
 void setup()
 {
   size(1000, 500);
+
+  background = loadImage("../files/winXP.jpg");
+  image(background, 0, 0);
+  background.resize(1000, 500);
+  image(background, 0, 0);
+  
+  file = new SoundFile(this, "../files/xp-startup.mp3");
+  file.amp(0.5);
+  file.play();
+
   renderHomescreen();
 }
 
