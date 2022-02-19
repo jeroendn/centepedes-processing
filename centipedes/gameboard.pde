@@ -104,6 +104,8 @@ void drawGameboard()
       square(offsetX, offsetY, gameboardSquareSize);
     }
   }
+
+  if (lastCollidedWith == "chameleon") drawChameleon();
 }
 
 /**
@@ -127,11 +129,8 @@ void move(String direction)
     addScore(5);
     increase = true;
     break;
-  case "chamelion":
+  case "chameleon":
     decrease = true;
-    file = new SoundFile(this, "../files/murloc.mp3");
-    file.amp(0.1);
-    file.play();
     break;
   }
 
@@ -141,12 +140,13 @@ void move(String direction)
     } else {
       centipedePositionsPlayer2 = setSegmentPositions(oldHeadPosition, centipedePositionsPlayer2, increase, decrease);
     }
+
     gameboard[oldHeadPosition[0]][oldHeadPosition[1]] = visitedId; // Mark position as visited
+    drawGameboard();
+
     if (remainingFruitCount() <= 0) gameOver(); // When all fruits have been eaten
     if (isMultiplayer) endTurn();
   }
-
-  drawGameboard();
 }
 
 int[] getHeadPosition()
@@ -250,7 +250,7 @@ boolean willCollide(int newY, int newX)
   }
 
   if (gameboard[newY][newX] == chameleonId) {
-    lastCollidedWith = "chamelion";
+    lastCollidedWith = "chameleon";
     return true;
   }
 
@@ -321,4 +321,20 @@ int remainingFruitCount()
   }
 
   return fruitCount;
+}
+
+/**
+ * Shows the chamelion on the board.
+ */
+void drawChameleon()
+{
+  int[] yx = getHeadPosition();
+
+  murloc = loadImage("../files/murloc.png");
+  murloc.resize(gameboardSquareSize, gameboardSquareSize);
+  image(murloc, boardOffsetX() + (gameboardSquareSize * yx[1]), boardOffsetY() + (gameboardSquareSize * yx[0]));
+
+  file = new SoundFile(this, "../files/murloc.mp3");
+  file.amp(0.1);
+  file.play();
 }

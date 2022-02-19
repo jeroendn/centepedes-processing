@@ -4,6 +4,7 @@ final color textColor = #000000;
 final int borderRadius = 5;
 import processing.sound.*;
 SoundFile file;
+PImage murloc;
 
 int scorePlayer1;
 int scorePlayer2;
