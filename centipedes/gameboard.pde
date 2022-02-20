@@ -5,13 +5,19 @@ void initCentipedePositions()
 {
   centipedePositionsPlayer1 = new int[countCentipedeSegmentsPlayer1][2];
   if (isMultiplayer) centipedePositionsPlayer2 = new int[countCentipedeSegmentsPlayer2][2];
+  
+  // Always initialise to the first segement index in order to prevent unset tail when starting positions is out of gameboard bounds
+  for (int i = 0; i < countCentipedeSegmentsPlayer1; i++) {
+    centipedePositionsPlayer1[i] = new int[] {1, 0};
+    if (isMultiplayer) centipedePositionsPlayer2[i] = new int[] {gameboardSizeX - 1, 0};
+  }
 
   for (int y = 0; y < gameboardSizeY; y++) {
     for (int x = 0; x < gameboardSizeX; x++) {
 
-      if (x == 0) { // TODO Fix addjustable length
-        centipedePositionsPlayer1[y] = new int[] {y, x}; // TODO DANGEROUS TO USE Y
-      } else if (x == 15 && isMultiplayer) {
+      if (x == 0 && y < countCentipedeSegmentsPlayer1) { // Player 1
+        centipedePositionsPlayer1[y] = new int[] {y, x};
+      } else if (x == gameboardSizeX - 1 && y < countCentipedeSegmentsPlayer2 && isMultiplayer) { // Player 2
         centipedePositionsPlayer2[y] = new int[] {y, x};
       }
     }
@@ -124,16 +130,14 @@ void move(String direction)
   case "banana":
     addScore(10);
     increase = true;
-    file = new SoundFile(this, "../media/crunch.wav");
+    play("crunch.wav", 0.5);
     file.amp(0.5);
     file.play();
     break;
   case "cherry":
     addScore(5);
     increase = true;
-    file = new SoundFile(this, "../media/crunch.wav");
-    file.amp(0.5);
-    file.play();
+    play("crunch.wav", 0.5);
     break;
   case "chameleon":
     decrease = true;
@@ -340,7 +344,5 @@ void drawChameleon()
   murloc.resize(gameboardSquareSize, gameboardSquareSize);
   image(murloc, boardOffsetX() + (gameboardSquareSize * yx[1]), boardOffsetY() + (gameboardSquareSize * yx[0]));
 
-  file = new SoundFile(this, "../media/murloc.mp3");
-  file.amp(0.05);
-  file.play();
+  play("murloc.mp3", 0.05);
 }

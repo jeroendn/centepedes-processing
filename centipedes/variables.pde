@@ -21,9 +21,9 @@ String lastCollidedWith;
 
 // Gameboard configs
 final int gameboardSquareSize = 25;
-int gameboardSizeY = 8;
 int gameboardSizeX = 16;
-int fruitAmount;
+int gameboardSizeY = 8;
+int fruitAmount = 25;
 int cherryAmount;
 int chameleonAmount;
 

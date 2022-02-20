@@ -4,14 +4,14 @@ void renderGamescreen(boolean isMulti)
   isMultiplayer = isMulti;
   scorePlayer1 = 0;
   scorePlayer2 = 0;
-  countCentipedeSegmentsPlayer1 = 8; // TODO Fix to use 10
-  countCentipedeSegmentsPlayer2 = 8; // TODO Fix to use 10
+  countCentipedeSegmentsPlayer1 = 10; // TODO Fix to use 10
+  countCentipedeSegmentsPlayer2 = 10; // TODO Fix to use 10
 
   inGame = true;
   isPlayer1 = true;
   lastCollidedWith = null;
 
-  fruitAmount = 25;
+  if (fruitAmount == 0) fruitAmount = 25; // Default of 25
   cherryAmount = ceil(fruitAmount * .2); // 20% of fruit are cherries
   chameleonAmount = ceil((gameboardSizeY * gameboardSizeX - fruitAmount) * .1); // 10% of boardspace minus fruit occupance
 
@@ -104,8 +104,6 @@ void gameOver()
   inGame = false;
 
   if (int(random(0, 10)) == 1) {
-    file = new SoundFile(this, "../media/xp-shutdown.mp3");
-    file.amp(0.01);
-    file.play();
+    play("xp-shutdown.mp3", 0.01);
   }
 }
