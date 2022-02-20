@@ -124,10 +124,16 @@ void move(String direction)
   case "banana":
     addScore(10);
     increase = true;
+    file = new SoundFile(this, "../media/crunch.wav");
+    file.amp(0.5);
+    file.play();
     break;
   case "cherry":
     addScore(5);
     increase = true;
+    file = new SoundFile(this, "../media/crunch.wav");
+    file.amp(0.5);
+    file.play();
     break;
   case "chameleon":
     decrease = true;
@@ -330,11 +336,11 @@ void drawChameleon()
 {
   int[] yx = getHeadPosition();
 
-  murloc = loadImage("../files/murloc.png");
+  murloc = loadImage("../media/murloc.png");
   murloc.resize(gameboardSquareSize, gameboardSquareSize);
   image(murloc, boardOffsetX() + (gameboardSquareSize * yx[1]), boardOffsetY() + (gameboardSquareSize * yx[0]));
 
-  file = new SoundFile(this, "../files/murloc.mp3");
-  file.amp(0.1);
+  file = new SoundFile(this, "../media/murloc.mp3");
+  file.amp(0.05);
   file.play();
 }

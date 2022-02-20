@@ -2,13 +2,13 @@ void setup()
 {
   size(1000, 500);
 
-  background = loadImage("../files/winXP.jpg");
+  background = loadImage("../media/winXP.jpg");
   image(background, 0, 0);
   background.resize(1000, 500);
   image(background, 0, 0);
   
-  file = new SoundFile(this, "../files/xp-startup.mp3");
-  file.amp(0.5);
+  file = new SoundFile(this, "../media/xp-startup.mp3");
+  file.amp(0.3);
   file.play();
 
   renderHomescreen();
@@ -66,6 +66,19 @@ void keyPressed()
       }
     }
   }
+}
+
+void button(int x, int y, int w, String text)
+{
+  int buttonH = 40;
+  int textSize = 20;
+
+  fill(#ffffff);
+  stroke(#000000);
+  rect(x, y, w, buttonH);
+  fill(textColor);
+  textSize(textSize);
+  text(text, x + (w / 2) - 50, y + (buttonH / 2) + (textSize / 4));
 }
 
 boolean checkButtonPressed(float x, float y, float w, float h)

@@ -104,7 +104,7 @@ void gameOver()
   inGame = false;
 
   if (int(random(0, 10)) == 1) {
-    file = new SoundFile(this, "../files/xp-shutdown.mp3");
+    file = new SoundFile(this, "../media/xp-shutdown.mp3");
     file.amp(0.01);
     file.play();
   }
