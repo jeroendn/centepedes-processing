@@ -1,13 +1,13 @@
-void renderGamescreen(boolean isMulti)
+void renderGameScreen(boolean isMulti)
 {
   timeInMillis = millis();
   isMultiplayer = isMulti;
   scorePlayer1 = 0;
   scorePlayer2 = 0;
-  countCentipedeSegmentsPlayer1 = 10; // TODO Fix to use 10
-  countCentipedeSegmentsPlayer2 = 10; // TODO Fix to use 10
+  countCentipedeSegmentsPlayer1 = 10;
+  countCentipedeSegmentsPlayer2 = 10;
 
-  inGame = true;
+  inGameScreen = true;
   isPlayer1 = true;
   lastCollidedWith = null;
 
@@ -101,7 +101,8 @@ void endTurn()
 
 void gameOver()
 {
-  inGame = false;
+  inGameScreen = false;
+  inScoreScreen = true;
 
   if (int(random(0, 10)) == 1) {
     play("xp-shutdown.mp3", 0.01);

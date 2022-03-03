@@ -9,12 +9,12 @@ void setup()
 
   play("xp-startup.mp3", 0.1);
 
-  renderHomescreen();
+  renderHomeScreen();
 }
 
 void draw()
 {
-  if (inGame) {
+  if (inGameScreen) {
     printScore();
 
     if (isMultiplayer) printTurnTime();
@@ -24,13 +24,22 @@ void draw()
       timeInMillis = millis();
       endTurn();
     }
+  } else if (inScoreScreen) {
+    renderScoreScreen();
+
+    if (checkButtonPressed(btnMenuX, btnScoreScreenY, btnWideW, btnH)) {
+      renderHomeScreen();
+      inScoreScreen = false;
+    } else if (checkButtonPressed(btnReplayX, btnScoreScreenY, btnWideW, btnH)) {
+      renderGameScreen(isMultiplayer);
+      inScoreScreen = false;
+    }
   } else {
-    renderHomescreen();
 
     if (checkButtonPressed(btnSingleplayerX, btnPlayerModeY, btnWideW, btnH)) {
-      renderGamescreen(false);
+      renderGameScreen(false);
     } else if (checkButtonPressed(btnMultiplayerX, btnPlayerModeY, btnWideW, btnH)) {
-      renderGamescreen(true);
+      renderGameScreen(true);
     } else if (checkButtonPressed(btnGameboardSize1X, btnGameboardSizeY, btnSmallW, btnH)) {
       gameboardSizeX = 16;
       gameboardSizeY = 8;
@@ -62,7 +71,7 @@ void draw()
 
 void keyPressed()
 {
-  if (inGame) {
+  if (inGameScreen) {
     if (isPlayer1) {
       if (key == 'w') {
         move("up");

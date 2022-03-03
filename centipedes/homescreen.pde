@@ -1,6 +1,3 @@
-int btnSmallW = 80;
-int btnWideW = 200;
-int btnH = 40;
 int btnSingleplayerX;
 int btnMultiplayerX;
 int btnPlayerModeY;
@@ -19,7 +16,7 @@ int btnFruit4X;
 int btnFruit5X;
 int btnFruitY;
 
-void renderHomescreen()
+void renderHomeScreen()
 {
   btnSingleplayerX = (width / 2) - btnWideW;
   btnMultiplayerX = (width / 2);
@@ -44,12 +41,14 @@ void renderHomescreen()
   button(btnSingleplayerX, btnPlayerModeY, btnWideW, "Singleplayer");
   button(btnMultiplayerX, btnPlayerModeY, btnWideW, "Multiplayer");
 
+  text("Gameboard size", btnGameboardSize1X, btnGameboardSizeY - 10);
   button(btnGameboardSize1X, btnGameboardSizeY, btnSmallW, "16x8");
   button(btnGameboardSize2X, btnGameboardSizeY, btnSmallW, "20x10");
   button(btnGameboardSize3X, btnGameboardSizeY, btnSmallW, "24x12");
   button(btnGameboardSize4X, btnGameboardSizeY, btnSmallW, "28x14");
   button(btnGameboardSize5X, btnGameboardSizeY, btnSmallW, "32x16");
 
+  text("Fruit amount", btnFruit1X, btnFruitY - 10);
   button(btnFruit1X, btnFruitY, btnSmallW, "10");
   button(btnFruit2X, btnFruitY, btnSmallW, "20");
   button(btnFruit3X, btnFruitY, btnSmallW, "25");

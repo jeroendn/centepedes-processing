@@ -5,7 +5,7 @@ void initCentipedePositions()
 {
   centipedePositionsPlayer1 = new int[countCentipedeSegmentsPlayer1][2];
   if (isMultiplayer) centipedePositionsPlayer2 = new int[countCentipedeSegmentsPlayer2][2];
-  
+
   // Always initialise to the first segement index in order to prevent unset tail when starting positions is out of gameboard bounds
   for (int i = 0; i < countCentipedeSegmentsPlayer1; i++) {
     centipedePositionsPlayer1[i] = new int[] {1, 0};
