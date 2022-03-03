@@ -340,7 +340,7 @@ void drawChameleon()
 {
   int[] yx = getHeadPosition();
 
-  murloc = loadImage("../media/murloc.png");
+  murloc = loadImage("murloc.png");
   murloc.resize(gameboardSquareSize, gameboardSquareSize);
   image(murloc, boardOffsetX() + (gameboardSquareSize * yx[1]), boardOffsetY() + (gameboardSquareSize * yx[0]));
 

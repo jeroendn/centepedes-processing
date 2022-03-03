@@ -2,7 +2,7 @@ void setup()
 {
   size(1000, 500);
 
-  background = loadImage("../media/winXP.jpg");
+  background = loadImage("winXP.jpg");
   image(background, 0, 0);
   background.resize(1000, 500);
   image(background, 0, 0);
@@ -121,7 +121,7 @@ boolean checkButtonPressed(float x, float y, float w, float h)
 
 void play(String filename, float amp)
 {
-  file = new SoundFile(this, "../media/" + filename);
+  file = new SoundFile(this, filename);
   file.amp(amp);
   file.play();
 }
