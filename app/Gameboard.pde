@@ -288,6 +288,7 @@ int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositio
 {
   int[] prevPos = new int[] {};
 
+  // Move first element after it's head
   for (int i = 0; i < centipedePositions.length; i++) {
     if (i == 1) {
       prevPos = centipedePositions[i];
@@ -295,6 +296,7 @@ int[][] setSegmentPositions(int[] previousHeadPosition, int[][] centipedePositio
     }
   }
 
+  // Move the rest of the segements
   for (int i = 0; i < centipedePositions.length; i++) {
     if (i != 0 && i != 1) {
       int[] tempPos = centipedePositions[i];
