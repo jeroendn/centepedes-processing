@@ -161,11 +161,8 @@ void move(String direction)
 
 int[] getHeadPosition()
 {
-  if (isPlayer1) {
-    return centipedePositionsPlayer1[0];
-  } else {
-    return centipedePositionsPlayer2[0];
-  }
+  if (isPlayer1) return centipedePositionsPlayer1[0];
+  return centipedePositionsPlayer2[0];
 }
 
 /**

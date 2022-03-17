@@ -8,8 +8,6 @@ void setup()
   image(background, 0, 0);
 
   play("xp-startup.mp3", 0.1);
-
-  renderHomeScreen();
 }
 
 void draw()
@@ -26,46 +24,8 @@ void draw()
     }
   } else if (inScoreScreen) {
     renderScoreScreen();
-
-    if (checkButtonPressed(btnMenuX, btnScoreScreenY, btnWideW, btnH)) {
-      renderHomeScreen();
-      inScoreScreen = false;
-    } else if (checkButtonPressed(btnReplayX, btnScoreScreenY, btnWideW, btnH)) {
-      renderGameScreen(isMultiplayer);
-      inScoreScreen = false;
-    }
   } else {
-
-    if (checkButtonPressed(btnSingleplayerX, btnPlayerModeY, btnWideW, btnH)) {
-      renderGameScreen(false);
-    } else if (checkButtonPressed(btnMultiplayerX, btnPlayerModeY, btnWideW, btnH)) {
-      renderGameScreen(true);
-    } else if (checkButtonPressed(btnGameboardSize1X, btnGameboardSizeY, btnSmallW, btnH)) {
-      gameboardSizeX = 16;
-      gameboardSizeY = 8;
-    } else if (checkButtonPressed(btnGameboardSize2X, btnGameboardSizeY, btnSmallW, btnH)) {
-      gameboardSizeX = 20;
-      gameboardSizeY = 10;
-    } else if (checkButtonPressed(btnGameboardSize3X, btnGameboardSizeY, btnSmallW, btnH)) {
-      gameboardSizeX = 24;
-      gameboardSizeY = 12;
-    } else if (checkButtonPressed(btnGameboardSize4X, btnGameboardSizeY, btnSmallW, btnH)) {
-      gameboardSizeX = 28;
-      gameboardSizeY = 14;
-    } else if (checkButtonPressed(btnGameboardSize5X, btnGameboardSizeY, btnSmallW, btnH)) {
-      gameboardSizeX = 32;
-      gameboardSizeY = 16;
-    } else if (checkButtonPressed(btnFruit1X, btnFruitY, btnSmallW, btnH)) {
-      fruitAmount = 10;
-    } else if (checkButtonPressed(btnFruit2X, btnFruitY, btnSmallW, btnH)) {
-      fruitAmount = 20;
-    } else if (checkButtonPressed(btnFruit3X, btnFruitY, btnSmallW, btnH)) {
-      fruitAmount = 25;
-    } else if (checkButtonPressed(btnFruit4X, btnFruitY, btnSmallW, btnH)) {
-      fruitAmount = 30;
-    } else if (checkButtonPressed(btnFruit5X, btnFruitY, btnSmallW, btnH)) {
-      fruitAmount = 50;
-    }
+    renderHomeScreen();
   }
 }
 
@@ -96,16 +56,23 @@ void keyPressed()
   }
 }
 
-void button(int x, int y, int w, String text)
+/**
+ * Draws a button and returns the pressed state.
+ */
+boolean button(int x, int y, int w, String text)
 {
+  boolean pressed = checkButtonPressed(x, y, w, btnH);
   int textSize = 20;
   fill(#ffffff);
+  if (pressed) fill(#dddddd);
   stroke(#000000);
   rect(x, y, w, btnH);
   fill(textColor);
   textSize(textSize);
   float textWidth = textWidth(text);
   text(text, x + (w / 2) - (textWidth / 2), y + (btnH / 2) + (textSize / 4));
+
+  return pressed;
 }
 
 boolean checkButtonPressed(float x, float y, float w, float h)

@@ -1,12 +1,8 @@
-int btnScoreScreenY;
-int btnMenuX;
-int btnReplayX;
-
 void renderScoreScreen()
 {
-  btnScoreScreenY = (height / 2) - (btnH / 2);
-  btnMenuX = width / 2 - btnWideW;
-  btnReplayX = width / 2;
+  int btnScoreScreenY = (height / 2) - (btnH / 2);
+  int btnMenuX = width / 2 - btnWideW;
+  int btnReplayX = width / 2;
 
   timeInMillis = millis();
   background(background);
@@ -33,6 +29,12 @@ void renderScoreScreen()
     text(text, width / 2 + 10, height * .30);
   }
 
-  button(btnMenuX, btnScoreScreenY, btnWideW, "Menu");
-  button(btnReplayX, btnScoreScreenY, btnWideW, "Replay");
+  if (button(btnMenuX, btnScoreScreenY, btnWideW, "Menu")) {
+    inScoreScreen = false;
+  }
+
+  if (button(btnReplayX, btnScoreScreenY, btnWideW, "Replay")) {
+    renderGameScreen(isMultiplayer);
+    inScoreScreen = false;
+  }
 }
